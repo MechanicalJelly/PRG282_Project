@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 
-namespace PRG281_ClassDiagram.Properties
+namespace PRG281_Project.Properties
 {
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.

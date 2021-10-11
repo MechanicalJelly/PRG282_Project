@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PRG281_ClassDiagram
+namespace PRG281_Project
 {
     static class Program
     {
@@ -16,7 +16,7 @@ namespace PRG281_ClassDiagram
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new Login());
         }
     }
 }
