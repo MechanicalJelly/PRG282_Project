@@ -13,6 +13,7 @@ namespace PRG282_Project
     public partial class ModuleDetails : Form
     {
         DataHandler handler = new DataHandler();
+        FormValidation validate = new FormValidation();
         public ModuleDetails()
         {
             InitializeComponent();
@@ -32,7 +33,7 @@ namespace PRG282_Project
 
         private void btnInsert_Click(object sender, EventArgs e)
         {
-
+            validate.ValidateModule();
         }
 
         private void btnRead_Click(object sender, EventArgs e)
@@ -42,7 +43,7 @@ namespace PRG282_Project
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-
+            validate.ValidateModule();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)

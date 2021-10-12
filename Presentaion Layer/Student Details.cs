@@ -13,6 +13,7 @@ namespace PRG282_Project
     public partial class StudentDetails : Form
     {
         DataHandler handler = new DataHandler();
+        FormValidation validate = new FormValidation();
         public StudentDetails()
         {
             InitializeComponent();
@@ -50,22 +51,32 @@ namespace PRG282_Project
 
         private void btnInsert_Click(object sender, EventArgs e)
         {
+            bool flag = validate.ValidateStudent(txtStudentName.Text, txtStudentSurname.Text, txtGender.Text, txtPhone.Text, txtAddress.Text);
 
+            if (flag == true)
+            {
+                MessageBox.Show("Please fill in the empty boxes!", "Empty Boxes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnRead_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+           bool flag = validate.ValidateStudent(txtStudentName.Text, txtStudentSurname.Text, txtGender.Text, txtPhone.Text, txtAddress.Text);
 
+            if (flag == true)
+            {
+                MessageBox.Show("Please fill in the empty boxes!","Empty Boxes",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void btnSearch_Click(object sender, EventArgs e)

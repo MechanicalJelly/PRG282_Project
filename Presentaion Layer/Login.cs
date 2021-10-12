@@ -31,17 +31,17 @@ namespace PRG282_Project
             if (handler.UserLogin(username, password)== true)
             {
                 login = "Succesful Login.";
+                MessageBox.Show(login, "Login Status.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Hide();
             }
             else
             {
-                login = "Username or Password is incorrect!Please make sure the user is registered.";
+                login = "Username or Password is incorrect! Please make sure the user is registered.";
+                MessageBox.Show(login, "Login Status.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtUsername.Text = "";
                 txtPassword.Text = "";
                 txtUsername.Focus();
             }
-
-            MessageBox.Show(login, "Login Status.");
         }
 
         private void btnRegister_Click(object sender, EventArgs e)
@@ -53,6 +53,7 @@ namespace PRG282_Project
             if (handler.UserRegister(username, password) == true)
             {
                 register = "User already exists.";
+                MessageBox.Show(register, "Register Status.",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 txtUsername.Text = "";
                 txtPassword.Text = "";
                 txtUsername.Focus();
@@ -60,9 +61,8 @@ namespace PRG282_Project
             else
             {
                 register = "New user has been registered.";
+                MessageBox.Show(register, "Register Status.",MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
-
-            MessageBox.Show(register,"Register Status.");
         }
 
         private void Login_Load(object sender, EventArgs e)
