@@ -22,6 +22,7 @@ namespace PRG282_Project
         List<Module> studentModules = new List<Module>();
         List<Student> students = new List<Student>();
 
+        public Student() { }
         public Student(int studentNum, string firstName, string surname, Image imgUrl, DateTime dateOfBirth, char gender, string phoneNumber, string address, List<Module> modules)
         {
             this.studentNum = studentNum;

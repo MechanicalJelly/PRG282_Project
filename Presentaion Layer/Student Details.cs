@@ -14,6 +14,7 @@ namespace PRG282_Project
     {
         DataHandler handler = new DataHandler();
         FormValidation validate = new FormValidation();
+        Student student = new Student();
         public StudentDetails()
         {
             InitializeComponent();
@@ -46,7 +47,7 @@ namespace PRG282_Project
 
         private void StudentDetails_Load(object sender, EventArgs e)
         {
-            dgvStudent.DataSource = handler.readStudents();
+            dgvStudent.DataSource = student.getStudents();
         }
 
         private void btnInsert_Click(object sender, EventArgs e)
@@ -57,11 +58,16 @@ namespace PRG282_Project
             {
                 MessageBox.Show("Please fill in the empty boxes!", "Empty Boxes", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            List<Module> modules = new List<Module>(clbModuleCodes.CheckedItems.Cast<Module>());
+           string insert = student.validateStudentInfo(new Student(int.Parse(txtStudentNumber.Text), txtStudentName.Text, txtStudentSurname.Text, pbxStudentImage.Image, dtpDOB.Value, Convert.ToChar(txtGender.Text), txtPhone.Text, txtAddress.Text, modules));
+
+            MessageBox.Show(insert, "Insert Student Info.",MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
 
         private void btnRead_Click(object sender, EventArgs e)
         {
-            
+           dgvStudent.DataSource = student.getStudents();
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -72,16 +78,21 @@ namespace PRG282_Project
             {
                 MessageBox.Show("Please fill in the empty boxes!","Empty Boxes",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
+
+            List<Module> modules = new List<Module>(clbModuleCodes.CheckedItems.Cast<Module>());
+            string update = student.studentInfoChanged(new Student(int.Parse(txtStudentNumber.Text), txtStudentName.Text, txtStudentSurname.Text, pbxStudentImage.Image, dtpDOB.Value, Convert.ToChar(txtGender.Text), txtPhone.Text, txtAddress.Text,modules));
+
+            MessageBox.Show(update, "Update Student Info.", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            
+           MessageBox.Show(student.studentDeleted(int.Parse(txtSearch.Text)),"Student Delete.",MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-
+           dgvStudent.DataSource = student.searchStudent(int.Parse(txtSearch.Text));
         }
     }
 }
