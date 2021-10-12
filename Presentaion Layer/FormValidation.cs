@@ -22,9 +22,16 @@ namespace PRG282_Project
                 return flag;
         }
 
-        public void ValidateModule()
+        public bool ValidateModule(string n, string d, string r)
         {
-
+            bool flag = false;
+            if (n == null || d == null || r == null)
+            {
+                flag = true;
+                return flag;
+            }
+            else
+                return flag;
         }
     }
 }

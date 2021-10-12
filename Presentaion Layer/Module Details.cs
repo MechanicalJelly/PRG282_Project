@@ -31,31 +31,6 @@ namespace PRG282_Project
             dgvModule.DataSource = handler.readModules();
         }
 
-        private void btnInsert_Click(object sender, EventArgs e)
-        {
-            validate.ValidateModule();
-        }
-
-        private void btnRead_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnUpdate_Click(object sender, EventArgs e)
-        {
-            validate.ValidateModule();
-        }
-
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void dgvModule_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -63,10 +38,44 @@ namespace PRG282_Project
                 DataGridViewRow row = this.dgvModule.Rows[e.RowIndex];
 
                 txtModuleCode.Text = row.Cells["Module_Code"].Value.ToString();
-                txtStudentName.Text = row.Cells["Module_Name"].Value.ToString();
+                txtModuleName.Text = row.Cells["Module_Name"].Value.ToString();
                 rtbDescription.Text = row.Cells["Module_Description"].Value.ToString();
                 rtbLinks.Text = row.Cells["Module_Resources"].Value.ToString();
+               
             }
+        }
+
+        private void btnInsert_Click(object sender, EventArgs e)
+        {
+            bool flag = validate.ValidateModule(txtModuleName.Text, rtbDescription.Text, rtbLinks.Text);
+            if (flag == true)
+            {
+                MessageBox.Show("Please fill in the empty boxes!", "Empty Boxes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            bool flag = validate.ValidateModule(txtModuleName.Text, rtbDescription.Text, rtbLinks.Text);
+            if (flag == true)
+            {
+                MessageBox.Show("Please fill in the empty boxes!", "Empty Boxes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void btnRead_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

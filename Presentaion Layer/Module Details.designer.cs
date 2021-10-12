@@ -1,4 +1,7 @@
 ﻿
+using System;
+using System.Windows.Forms;
+
 namespace PRG282_Project
 {
     partial class ModuleDetails
@@ -40,7 +43,7 @@ namespace PRG282_Project
             this.btnRead = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
-            this.txtStudentName = new System.Windows.Forms.TextBox();
+            this.txtModuleName = new System.Windows.Forms.TextBox();
             this.lblLinks = new System.Windows.Forms.Label();
             this.lblModuleDescription = new System.Windows.Forms.Label();
             this.lblModuleName = new System.Windows.Forms.Label();
@@ -64,7 +67,7 @@ namespace PRG282_Project
             this.gbxModule.Controls.Add(this.btnRead);
             this.gbxModule.Controls.Add(this.btnDelete);
             this.gbxModule.Controls.Add(this.btnUpdate);
-            this.gbxModule.Controls.Add(this.txtStudentName);
+            this.gbxModule.Controls.Add(this.txtModuleName);
             this.gbxModule.Controls.Add(this.lblLinks);
             this.gbxModule.Controls.Add(this.lblModuleDescription);
             this.gbxModule.Controls.Add(this.lblModuleName);
@@ -171,12 +174,12 @@ namespace PRG282_Project
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
-            // txtStudentName
+            // txtModuleName
             // 
-            this.txtStudentName.Location = new System.Drawing.Point(164, 288);
-            this.txtStudentName.Name = "txtStudentName";
-            this.txtStudentName.Size = new System.Drawing.Size(150, 20);
-            this.txtStudentName.TabIndex = 65;
+            this.txtModuleName.Location = new System.Drawing.Point(164, 288);
+            this.txtModuleName.Name = "txtModuleName";
+            this.txtModuleName.Size = new System.Drawing.Size(150, 20);
+            this.txtModuleName.TabIndex = 65;
             // 
             // lblLinks
             // 
@@ -256,6 +259,8 @@ namespace PRG282_Project
 
         }
 
+        
+
         #endregion
 
         private System.Windows.Forms.GroupBox gbxModule;
@@ -267,7 +272,7 @@ namespace PRG282_Project
         private System.Windows.Forms.Button btnRead;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnUpdate;
-        private System.Windows.Forms.TextBox txtStudentName;
+        private System.Windows.Forms.TextBox txtModuleName;
         private System.Windows.Forms.Label lblLinks;
         private System.Windows.Forms.Label lblModuleDescription;
         private System.Windows.Forms.Label lblModuleName;
