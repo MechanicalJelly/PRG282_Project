@@ -129,6 +129,7 @@ namespace PRG282_Project
             this.btnSearch.TabIndex = 72;
             this.btnSearch.Text = "Search Module";
             this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // btnBack
             // 
@@ -148,6 +149,7 @@ namespace PRG282_Project
             this.btnRead.TabIndex = 70;
             this.btnRead.Text = "Read Module";
             this.btnRead.UseVisualStyleBackColor = true;
+            this.btnRead.Click += new System.EventHandler(this.btnRead_Click);
             // 
             // btnDelete
             // 
@@ -157,6 +159,7 @@ namespace PRG282_Project
             this.btnDelete.TabIndex = 69;
             this.btnDelete.Text = "Delete Module";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnUpdate
             // 
@@ -166,6 +169,7 @@ namespace PRG282_Project
             this.btnUpdate.TabIndex = 68;
             this.btnUpdate.Text = "Update Module";
             this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // txtStudentName
             // 
@@ -234,6 +238,7 @@ namespace PRG282_Project
             this.dgvModule.Name = "dgvModule";
             this.dgvModule.Size = new System.Drawing.Size(721, 196);
             this.dgvModule.TabIndex = 58;
+            this.dgvModule.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvModule_CellContentClick);
             // 
             // ModuleDetails
             // 
@@ -243,6 +248,7 @@ namespace PRG282_Project
             this.Controls.Add(this.gbxModule);
             this.Name = "ModuleDetails";
             this.Text = "Module Details";
+            this.Load += new System.EventHandler(this.ModuleDetails_Load);
             this.gbxModule.ResumeLayout(false);
             this.gbxModule.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvModule)).EndInit();
