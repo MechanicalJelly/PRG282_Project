@@ -1,5 +1,5 @@
 ﻿
-namespace PRG281_Project
+namespace PRG282_Project
 {
     partial class ModuleDetails
     {

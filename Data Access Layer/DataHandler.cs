@@ -11,7 +11,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 
-namespace PRG281_Project
+namespace PRG282_Project
 {
     public class DataHandler
     {

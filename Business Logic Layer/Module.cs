@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace PRG281_Project
+namespace PRG282_Project
 {
     public class Module: IModule
     {

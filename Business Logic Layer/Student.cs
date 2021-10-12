@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 
-namespace PRG281_Project
+namespace PRG282_Project
 {
     public class Student : IStudent
     {
