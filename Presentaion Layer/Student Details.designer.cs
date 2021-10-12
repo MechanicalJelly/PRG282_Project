@@ -1,5 +1,5 @@
 ﻿
-namespace Group_9_Assignment_1
+namespace PRG281_Project
 {
     partial class StudentDetails
     {
@@ -189,6 +189,7 @@ namespace Group_9_Assignment_1
             this.btnUpdate.TabIndex = 49;
             this.btnUpdate.Text = "Update Student";
             this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // lblModuleCodes
             // 

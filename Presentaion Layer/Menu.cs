@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Group_9_Assignment_1
+namespace PRG281_Project
 {
     public partial class Menu : Form
     {

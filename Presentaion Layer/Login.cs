@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Group_9_Assignment_1
+namespace PRG281_Project
 {
     public partial class Login : Form
     {
@@ -16,7 +16,7 @@ namespace Group_9_Assignment_1
         {
             InitializeComponent();
         }
-        Filehandler handler = new Filehandler();
+        FileHandler handler = new FileHandler();
         private void btnExit_Click(object sender, EventArgs e)
         {
             Application.Exit();

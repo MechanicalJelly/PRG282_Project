@@ -1,5 +1,5 @@
 ﻿
-namespace Group_9_Assignment_1
+namespace PRG281_Project
 {
     partial class Menu
     {
