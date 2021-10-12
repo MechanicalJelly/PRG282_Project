@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace PRG281_Project
+namespace PRG282_Project
 {
     public class Module: IModule
     {
@@ -57,9 +57,11 @@ namespace PRG281_Project
             return new List<Module>();
         }
 
-        public int CompareTo(object obj)
+        //sorting according to modulecode,,1,,2,,3
+        public int CompareTo(Module other)
         {
-            throw new NotImplementedException();
+            return this.ModuleCode.CompareTo(other.ModuleCode);
         }
+      
     }
 }
