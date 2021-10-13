@@ -170,7 +170,12 @@ namespace PRG282_Project
             return newList;
         }
 
+        public List<int> getStudentModules(int num)
+        {
+            List<int> li = handle.readStudentModules(num);
+            return li;
 
+        }
     
         public int CompareTo(Student other)
         {

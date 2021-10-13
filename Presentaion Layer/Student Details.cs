@@ -43,13 +43,26 @@ namespace PRG282_Project
                 txtPhone.Text = row.Cells["PhoneNumber"].Value.ToString();
                 txtAddress.Text = row.Cells["Address"].Value.ToString();
                 //clbModuleCodes.Items.Add(row.Cells["StudentModules"].Value.ToString());
+
+                foreach (int module in student.getStudentModules(int.Parse(txtStudentNumber.Text)))
+                {
+                    if (clbModuleCodes.Items.Contains(module))
+                    {
+                        clbModuleCodes.SetItemChecked(module, true);
+                    }
+                }
             }
         }
 
         private void StudentDetails_Load(object sender, EventArgs e)
         {           
             dgvStudent.DataSource = student.getStudents();
-            clbModuleCodes.Items.Add(module.getModuless());
+
+            foreach (var module1 in module.getModuless())
+            {
+                clbModuleCodes.Items.Add(module1);
+            }
+
             this.dgvStudent.Columns["ImgUrl"].Visible = false;
         }
 
@@ -63,8 +76,11 @@ namespace PRG282_Project
 
         private void btnRead_Click(object sender, EventArgs e)
         {
-           
-           dgvStudent.DataSource = student.getStudents();
+            dgvStudent.DataSource = student.getStudents();
+            foreach (var module1 in module.getModuless())
+            {
+                clbModuleCodes.Items.Add(module1);
+            }
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
