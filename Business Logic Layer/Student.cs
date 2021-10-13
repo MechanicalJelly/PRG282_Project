@@ -45,61 +45,149 @@ namespace PRG282_Project
         public string Address { get => address; set => address = value; }
 
 
-        //Student validation
-       public string checkPhone(string phone)
+       
+       public string validation(string fn, string sn,Image i,DateTime dob, char g,string phone, string a)
         {
-            if (s.PhoneNumber.Length() != 10) { return "Phone number is not the correct length"}
+
+            if (string.IsNullOrEmpty(fn))
+            {
+                return "Empty!!Enter a firstname!!";
+            }
+            else if (string.IsNullOrEmpty(sn))
+            {
+                return "Empty!!Enter a surname!!";
+            }
+            else if (i.Equals(null))
+            {
+                return "Empty!!Import image!!";
+            }
+           /* else if (dob.)
+            {
+                return "Empty!!Enter a date!!";
+            }*/
+            else if (!g.Equals('M') || !g.Equals('F'))
+            {
+                return "Error!!Enter  M or F!!";
+            }
+            else if ((phone.Length != 10))
+            {
+                return "Error!!Enter only 10 digits!!";
+            }
+            else if (string.IsNullOrEmpty(a))
+            {
+                return "Empty!!Enter address!!";
+            }
+            else
+            {
+                return "Successful validation";
+            }
+
+
+
         }
 
-        //References DH to insert student (C)
+        
         public string validateStudentInfo(Student s)
         {
-            
-            List<int> modules = new List<int>();
-            //modules.Add(1);
-            //modules.Add(3);
-            //modules.Add(5);
-
-            //do validation of student info here 
-            //ex. if(s.PhoneNumber.Length() != 10){ return "Phone number is not the correct length"}
-
-            // Do research on how to load image from local machine to add student image into DB (Gallery excercise)
-
-            if (handle.addStudent(s.FirstName,s.Surname,s.ImgUrl,s.DateOfBirth,s.Gender,s.PhoneNumber,s.Address, modules))
-                return "New Student has been added.";
+            string msg = validation(s.FirstName, s.Surname, s.ImgUrl, s.DateOfBirth, s.Gender, s.PhoneNumber, s.Address);
+            if (msg[0].Equals("E"))//alles begin met e
+            {
+                return msg;
+            }
             else
-                return "Student could not be added.";
+            {
+                List<int> modules = new List<int>();
+                modules.Add(1);
+                modules.Add(3);
+                modules.Add(5);
+
+
+                
+
+                if (handle.addStudent(s.FirstName, s.Surname, s.ImgUrl, s.DateOfBirth, s.Gender, s.PhoneNumber, s.Address, modules))
+                    return "New Student has been added.";
+                else
+                    return "Student could not be added.";
+            }
                     
         }
 
-        //Fetches all students from DH (R)
+        
         public List<Student> getStudents()
         {
             DataHandler handle = new DataHandler();
             return handle.readStudents();
         }
 
-        //confirms update (U)
         public string studentInfoChanged(Student s)
         {
-            DataHandler handle = new DataHandler();
-            return "Student with id: "+", has been updated.";
+           
+           
+           
+            string msg = validation(s.FirstName, s.Surname, s.ImgUrl, s.DateOfBirth, s.Gender, s.PhoneNumber, s.Address);
+            if (msg[0].Equals("E"))//alles begin met e
+            {
+                return msg;
+            }
+            else
+            {
+                List<int> modules = new List<int>();
+                modules.Add(1);
+                modules.Add(3);
+                modules.Add(5);
+
+                DataHandler handle = new DataHandler();
+                if (handle.updateStudent(s.StudentNum, s.FirstName, s.Surname, s.ImgUrl, s.DateOfBirth, s.Gender, s.PhoneNumber, s.Address, modules))
+                {
+                    return "Student with id: " + s.StudentNum + ", has been updated.";
+                }
+                else
+                {
+                    return "fail to update";
+                }
+            }
+
         }
-        //Deletes student (D)
+       
         public string studentDeleted(int sNum)
         {
-            return "Student Deleted";
+        
+            DataHandler handle = new DataHandler();
+            if (handle.deleteStudent(sNum))
+            {
+                return "Student with id: " + sNum + ", has been deleted.";
+            }
+            else
+            {
+                return "fail to delete";
+            }
+            
         }
 
-        //returns the new filtered source for DGV 
+       
         public List<Student> searchStudent(int studentNum)
+
         {
-            return new List<Student>();
+           
+           
+            List<Student> ls = new List<Student>();
+            foreach (Student s in students)
+            {
+                if (s.StudentNum.Equals(studentNum))
+                {
+                    ls.Add(new Student(s.StudentNum, s.FirstName, s.Surname, s.ImgUrl, s.DateOfBirth, s.Gender, s.PhoneNumber, s.Address,studentModules));
+                    
+                }
+            }
+            return ls;
         }
 
-        public int CompareTo(object obj)
+
+    
+        public int CompareTo(Student other)
         {
-            throw new NotImplementedException();
+            return this.FirstName.CompareTo(other.FirstName);
         }
+       
     }
 }
