@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -80,6 +81,21 @@ namespace PRG282_Project
         private void btnSearch_Click(object sender, EventArgs e)
         {
            dgvStudent.DataSource = student.searchStudent(int.Parse(txtSearch.Text));
+        }
+
+        private void btnStudentImage_Click(object sender, EventArgs e)
+        {
+            string filename;
+            using (OpenFileDialog odf = new OpenFileDialog() { Filter = "Images|*.jpg;*.png;*.jpeg", ValidateNames = true, Multiselect = false })
+            {
+                if (odf.ShowDialog() == DialogResult.OK)
+                {
+                    filename = odf.FileName;
+                    pbxStudentImage.Image = Image.FromFile(filename);
+                    string name = Path.GetFileName(filename);
+                    pbxStudentImage.SizeMode = PictureBoxSizeMode.StretchImage;
+                }
+            }
         }
     }
 }

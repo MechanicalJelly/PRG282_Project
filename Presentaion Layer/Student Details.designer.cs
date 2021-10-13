@@ -127,6 +127,7 @@ namespace PRG282_Project
             this.btnStudentImage.TabIndex = 56;
             this.btnStudentImage.Text = "Upload Image";
             this.btnStudentImage.UseVisualStyleBackColor = true;
+            this.btnStudentImage.Click += new System.EventHandler(this.btnStudentImage_Click);
             // 
             // lblSearch
             // 

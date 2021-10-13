@@ -74,7 +74,7 @@ namespace PRG282_Project
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            dgvModule.DataSource = module.searchModule(txtModuleCode.Text);
+            dgvModule.DataSource = module.searchModule(txtSearch.Text);
         }
     }
 }
