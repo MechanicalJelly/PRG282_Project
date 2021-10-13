@@ -20,6 +20,19 @@ namespace PRG282_Project
             InitializeComponent();
         }
 
+        //Please remove or edit as you see fit De Wet
+        public void checkStudentModules(List<int> ml)
+        {
+            for (int i = 0; i< clbModuleCodes.Items.Count; i++)
+            {
+                 clbModuleCodes.SetItemChecked(i, false);
+            }
+            foreach (int mi in ml)
+            {
+                clbModuleCodes.SetItemChecked(mi, true);
+            }   
+        }
+
         private void btnBack_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -42,16 +55,9 @@ namespace PRG282_Project
                 txtGender.Text = row.Cells["Gender"].Value.ToString();
                 txtPhone.Text = row.Cells["PhoneNumber"].Value.ToString();
                 txtAddress.Text = row.Cells["Address"].Value.ToString();
-                //clbModuleCodes.Items.Add(row.Cells["StudentModules"].Value.ToString());
 
-                foreach (int mi in student.getStudentModules(int.Parse(txtStudentNumber.Text)))
-                {
-                    MessageBox.Show(mi.ToString());
-                    if (clbModuleCodes.Items.Contains(mi))
-                    {
-                        clbModuleCodes.SetItemChecked(mi, true);
-                    }
-                }
+                checkStudentModules(student.getStudentModules(int.Parse(txtStudentNumber.Text)));
+                
             }
         }
 
