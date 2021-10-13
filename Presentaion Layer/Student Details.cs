@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Group_9_Assignment_1
+namespace PRG282_Project
 {
     public partial class StudentDetails : Form
     {
@@ -22,6 +22,11 @@ namespace Group_9_Assignment_1
             this.Hide();
             Menu m = new Menu();
             m.Show();
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

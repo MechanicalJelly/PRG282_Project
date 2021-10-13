@@ -1,5 +1,5 @@
 ﻿
-namespace Group_9_Assignment_1
+namespace PRG282_Project
 {
     partial class ModuleDetails
     {
@@ -225,6 +225,7 @@ namespace Group_9_Assignment_1
             this.btnInsert.TabIndex = 59;
             this.btnInsert.Text = "Insert Module";
             this.btnInsert.UseVisualStyleBackColor = true;
+            this.btnInsert.Click += new System.EventHandler(this.btnInsert_Click);
             // 
             // dgvModule
             // 
