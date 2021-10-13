@@ -31,6 +31,7 @@ namespace PRG282_Project
         //References DH to insert module (C)
         public string validateModuleInfo(Module m)
         {
+            
             return "New Module has been added.";
         }
 

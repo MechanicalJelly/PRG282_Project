@@ -45,11 +45,7 @@ namespace PRG282_Project
         public string Address { get => address; set => address = value; }
 
 
-        //Student validation
-       public string checkPhone(string phone)
-        {
-            if (s.PhoneNumber.Length() != 10) { return "Phone number is not the correct length"}
-        }
+
 
         //References DH to insert student (C)
         public string validateStudentInfo(Student s)
