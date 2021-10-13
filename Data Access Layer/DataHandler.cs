@@ -16,8 +16,6 @@ namespace PRG282_Project
     {
         static string connect = @"Data Source=freeseball-PC;Initial Catalog=Milestone2_DB;Integrated Security=True";
         
-        
-
         //General Code
         public byte[] convertImage(Image img)
         {
@@ -32,32 +30,21 @@ namespace PRG282_Project
 
         //StudentModules DB
         //SQL query that finds all modules linked to a student Num
-        public List<int> readStudentModules(int Num)
+        public List<int> readStudentModules(int sNum)
         {
-            SqlConnection sqlConn = new SqlConnection(connect);
             List<int> mList = new List<int>();
             
             try
             {
-                sqlConn.Open();
-                string qModules = "SELECT Module_Code FROM Modules  WHERE Module_Code IN (SELECT Module_Code FROM StudentModules WHERE Student_Number = 1)";
-                SqlCommand cmd = new SqlCommand(qModules, sqlConn);
-
-                using (var r = cmd.ExecuteReader())
+                using (SqlConnection sqlConn = new SqlConnection(connect))
                 {
+                    SqlCommand cmd = new SqlCommand("spGetStudentModules", sqlConn);
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                    while (r.Read())
-                    {
-                        //Add current Module to list of Modules
-                        mList.Add(int.Parse(r[0].ToString()));
-                    }
-                }
-            }
-            finally
-            {
-                if (sqlConn.State == ConnectionState.Open)
-                {
-                    sqlConn.Close();
+                    cmd.Parameters.AddWithValue("@ID", sNum);
+
+                    sqlConn.Open();
+                    cmd.ExecuteNonQuery();
                 }
             }
 
@@ -68,10 +55,10 @@ namespace PRG282_Project
         //Add a Student-Module Pair to the joining table "StudentModules"
         public void addStudentModules(int sID, int mID)
         {
-            SqlConnection sqlConn = new SqlConnection(connect);
+
             try
             {
-                using (sqlConn)
+                using (SqlConnection sqlConn = new SqlConnection(connect))
                 {
                     SqlCommand cmd = new SqlCommand("spAddStudentModules", sqlConn);
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -81,13 +68,6 @@ namespace PRG282_Project
 
                     sqlConn.Open();
                     cmd.ExecuteNonQuery();
-                }
-            }
-            finally
-            {
-                if (sqlConn.State == ConnectionState.Open)
-                {
-                    sqlConn.Close();
                 }
             }
         }
@@ -127,9 +107,8 @@ namespace PRG282_Project
                     }
                 }
             }
-            catch(SqlException)
+            catch
             {
-                //Check returned list count in Student BL layer, if count is 0, return error message saying "ERROR connecting to server"
                 sList.Clear();
             }
             finally
@@ -148,12 +127,11 @@ namespace PRG282_Project
         {
             bool success = false;
             int sID;
-            SqlConnection sqlConn = new SqlConnection(connect);
 
             try
             {
                 //Adds student with parameters
-                using (sqlConn)
+                using (SqlConnection sqlConn = new SqlConnection(connect))
                 {
                     SqlCommand cmd = new SqlCommand("spAddStudents", sqlConn);    
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -172,7 +150,7 @@ namespace PRG282_Project
                 }
 
                 //Gets the Student_Number of the latest (previously inserted) student
-                using (sqlConn)
+                using (SqlConnection sqlConn = new SqlConnection(connect))
                 {
                     SqlCommand cmd = new SqlCommand("spGetLastId", sqlConn);
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -188,16 +166,9 @@ namespace PRG282_Project
                 success = true;
 
             }
-            catch (SqlException)
+            catch (SqlException ex)
             {
                 success = false;
-            }
-            finally
-            {
-                if (sqlConn.State == ConnectionState.Open)
-                {
-                    sqlConn.Close();
-                }
             }
 
             return success;
@@ -206,13 +177,12 @@ namespace PRG282_Project
         //updates student to DB and returns confirmation
         public bool updateStudent(int id, string n, string sn, Image img, DateTime dob, char g, string p, string a, List<int> mId)
         {
-            SqlConnection sqlConn = new SqlConnection(connect);
             bool success = false;
 
             try
             {
                 //Adds student with parameters
-                using (sqlConn)
+                using (SqlConnection sqlConn = new SqlConnection(connect))
                 {
                     SqlCommand cmd = new SqlCommand("spUpdateStudents", sqlConn);
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -243,13 +213,6 @@ namespace PRG282_Project
             {
                 success = false;
             }
-            finally
-            {
-                if (sqlConn.State == ConnectionState.Open)
-                {
-                    sqlConn.Close();
-                }
-            }
 
             return success;
         }
@@ -257,12 +220,12 @@ namespace PRG282_Project
         //deletes student and returns confirmation
         public bool deleteStudent(int sNum)
         {
-            SqlConnection sqlConn = new SqlConnection(connect);
+
             bool success = false;
 
             try
             {
-                using (sqlConn)
+                using (SqlConnection sqlConn = new SqlConnection(connect))
                 {
                     SqlCommand cmd = new SqlCommand("spDeleteStudents", sqlConn);
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -277,13 +240,6 @@ namespace PRG282_Project
             catch (SqlException)
             {
                 success = false;
-            }
-            finally
-            {
-                if (sqlConn.State == ConnectionState.Open)
-                {
-                    sqlConn.Close();
-                }
             }
 
             return success;
@@ -331,14 +287,13 @@ namespace PRG282_Project
         }
 
         //adds Module to DB and returns confirmation
-        public bool addModule(int id, string n, string des, List<string> res)
+        public bool addModule(string n, string des, List<string> res)
         {
-            SqlConnection sqlConn = new SqlConnection(connect);
             bool success = false;
 
             try
             {
-                using (sqlConn)
+                using (SqlConnection sqlConn = new SqlConnection(connect))
                 {
                     SqlCommand cmd = new SqlCommand("spAddModules", sqlConn);    
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -356,13 +311,6 @@ namespace PRG282_Project
             {
                 success = false;
             }
-            finally
-            {
-                if (sqlConn.State == ConnectionState.Open)
-                {
-                    sqlConn.Close();
-                }
-            }
 
             return success;
         }
@@ -370,16 +318,16 @@ namespace PRG282_Project
         //updates module to DB and returns confirmation
         public bool updateModule(int id, string n, string des, List<string> res)
         {
-            SqlConnection sqlConn = new SqlConnection(connect);
             bool success = false;
 
             try
             {
-                using (sqlConn)
+                using (SqlConnection sqlConn = new SqlConnection(connect))
                 {
                     SqlCommand cmd = new SqlCommand("spUpdateModules", sqlConn);    
                     cmd.CommandType = CommandType.StoredProcedure;
 
+                    cmd.Parameters.AddWithValue("@ID",id);
                     cmd.Parameters.AddWithValue("@N",n);
                     cmd.Parameters.AddWithValue("@DES", des);
                     cmd.Parameters.AddWithValue("@RES", String.Join(";", res.ToArray()));
@@ -393,13 +341,6 @@ namespace PRG282_Project
             {
                 success = false;
             }
-            finally
-            {
-                if (sqlConn.State == ConnectionState.Open)
-                {
-                    sqlConn.Close();
-                }
-            }
 
             return success;
         }
@@ -407,12 +348,11 @@ namespace PRG282_Project
         //deletes module and returns confirmation
         public bool deleteModule(int mCode)
         {
-            SqlConnection sqlConn = new SqlConnection(connect);
             bool success = false;
 
             try
             {
-                using (sqlConn)
+                using (SqlConnection sqlConn = new SqlConnection(connect))
                 {
                     SqlCommand cmd = new SqlCommand("spDeleteModules", sqlConn);
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -427,13 +367,6 @@ namespace PRG282_Project
             catch (SqlException)
             {
                 success = false;
-            }
-            finally
-            {
-                if (sqlConn.State == ConnectionState.Open)
-                {
-                    sqlConn.Close();
-                }
             }
 
             return success;

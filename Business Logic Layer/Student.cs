@@ -48,7 +48,7 @@ namespace PRG282_Project
         public string Address { get => address; set => address = value; }
         public List<int> StudentModules { get => studentModules; set => studentModules = value; }
 
-
+       
        //Validates all student info to ensure that entered data is in the correct format, returns a suitable message
        public string validation(string fn, string sn,Image i,DateTime dob, char g,string phone, string a)
         {

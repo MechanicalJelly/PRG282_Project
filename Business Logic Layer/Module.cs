@@ -60,7 +60,7 @@ namespace PRG282_Project
             }
             else
             {
-                if (handle.addModule(m.ModuleCode,m.ModuleName,m.Description,m.onlineResources))
+                if (handle.addModule(m.ModuleName,m.Description,m.onlineResources))
                     return "New Module has been added.";
                 else
                     return "Module could not be added.";
@@ -68,7 +68,7 @@ namespace PRG282_Project
         }
 
         //[R] Reads and returns all modules in the DB
-        public List<Module> getModuless()
+        public List<Module> getModules()
         {
             DataHandler handle = new DataHandler();
             return handle.readModules();

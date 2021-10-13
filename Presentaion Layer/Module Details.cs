@@ -27,7 +27,7 @@ namespace PRG282_Project
 
         private void ModuleDetails_Load(object sender, EventArgs e)
         {
-            dgvModule.DataSource = module.getModuless();
+            dgvModule.DataSource = module.getModules();
         }
 
         private void dgvModule_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -69,7 +69,7 @@ namespace PRG282_Project
 
         private void btnRead_Click(object sender, EventArgs e)
         {
-            dgvModule.DataSource = module.getModuless();
+            dgvModule.DataSource = module.getModules();
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
