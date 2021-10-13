@@ -2,11 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 
 namespace PRG282_Project
 {
     public interface IStudent
     {
+        //Returns all module Names 
+        List<string> getModuleNames();
+
+        //Validates all student info to ensure that entered data is in the correct format, returns a suitable message
+        string validation(string fn, string sn,Image i,DateTime dob, char g,string phone, string a);
+
         //References DH to insert student if criteria is met (C)
         string validateStudentInfo(Student s);
 

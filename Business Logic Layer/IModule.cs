@@ -7,12 +7,13 @@ namespace PRG282_Project
 {
     public interface IModule
     {
+
         //References DH to insert module when cirteria is met (C)
         string validateModuleInfo(Module m);
 
 
         //Fetches all Modules from DH (R)
-        List<Module> getModuless();
+        List<Module> getModules();
 
 
         //confirms update and sends relevant message (U)

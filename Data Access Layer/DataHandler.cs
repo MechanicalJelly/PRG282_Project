@@ -34,8 +34,6 @@ namespace PRG282_Project
         {
             List<int> mList = new List<int>();
             
-            try
-            {
                 using (SqlConnection sqlConn = new SqlConnection(connect))
                 {
                     SqlCommand cmd = new SqlCommand("spGetStudentModules", sqlConn);
@@ -44,9 +42,19 @@ namespace PRG282_Project
                     cmd.Parameters.AddWithValue("@ID", sNum);
 
                     sqlConn.Open();
-                    cmd.ExecuteNonQuery();
+
+                    using (var r = cmd.ExecuteReader())
+                    {                   
+                        while (r.Read())
+                        {
+                            //student_Number (Used to reduce new studetn function size, since it is used more than once)
+                            int id = int.Parse(r[0].ToString());
+                        
+                            //Add current student to list of students
+                            mList.Add((id-1));
+                        }
+                    }
                 }
-            }
 
             return mList;
 
@@ -55,9 +63,6 @@ namespace PRG282_Project
         //Add a Student-Module Pair to the joining table "StudentModules"
         public void addStudentModules(int sID, int mID)
         {
-
-            try
-            {
                 using (SqlConnection sqlConn = new SqlConnection(connect))
                 {
                     SqlCommand cmd = new SqlCommand("spAddStudentModules", sqlConn);
@@ -69,7 +74,6 @@ namespace PRG282_Project
                     sqlConn.Open();
                     cmd.ExecuteNonQuery();
                 }
-            }
         }
 
 
@@ -84,7 +88,7 @@ namespace PRG282_Project
             try
             {
                 sqlConn.Open();
-                string qSelect = "Select * from Students";
+                string qSelect = "Select * from Students ORDER BY Student_Number";
                 SqlCommand cmd = new SqlCommand(qSelect, sqlConn);
 
                 using (var r = cmd.ExecuteReader())
@@ -256,7 +260,7 @@ namespace PRG282_Project
             try
             {
                 sqlConn.Open();
-                string qSelect = "Select * from Modules";
+                string qSelect = "Select * from Modules ORDER BY Module_Code";
                 SqlCommand cmd = new SqlCommand(qSelect, sqlConn);
 
                 using (var r = cmd.ExecuteReader())

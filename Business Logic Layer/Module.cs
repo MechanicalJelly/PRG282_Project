@@ -31,6 +31,8 @@ namespace PRG282_Project
         public string ModuleName { get => moduleName; set => moduleName = value; }
         public string Description { get => description; set => description = value; }
 
+        
+
         //Module validation
         public string validation(string mN, string des)
         {

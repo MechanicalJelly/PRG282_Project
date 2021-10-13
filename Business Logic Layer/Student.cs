@@ -47,10 +47,10 @@ namespace PRG282_Project
         public string PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
         public string Address { get => address; set => address = value; }
         public List<int> StudentModules { get => studentModules; set => studentModules = value; }
-
-       //General
-       //Returns all module Names 
-       public List<string> getModuleNames()
+      
+        //GENERAL
+        //Get names of all modules in DB
+        public List<string> getModuleNames()
         {
             Module m = new Module();
             List<Module> modules = new List<Module>();
@@ -58,10 +58,18 @@ namespace PRG282_Project
             modules = m.getModules();
 
             foreach(Module l in modules){
-                names.Add(l.ModuleName)
+                names.Add(l.ModuleName);
             }
 
             return names;
+        }
+
+        //Get Modules of a specific student
+        public List<int> getStudentModules(int num)
+        {
+            List<int> li = handle.readStudentModules(num);
+            return li;
+
         }
 
        //Validates all student info to ensure that entered data is in the correct format, returns a suitable message
@@ -185,12 +193,7 @@ namespace PRG282_Project
             return newList;
         }
 
-        public List<int> getStudentModules(int num)
-        {
-            List<int> li = handle.readStudentModules(num);
-            return li;
-
-        }
+        
     
         public int CompareTo(Student other)
         {
