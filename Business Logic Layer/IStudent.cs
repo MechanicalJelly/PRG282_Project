@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PRG282_Project
 {
-    public interface IStudent:IComparable
+    public interface IStudent
     {
         //References DH to insert student if criteria is met (C)
         string validateStudentInfo(Student s);

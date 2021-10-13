@@ -36,10 +36,10 @@ namespace PRG282_Project
             {
                 DataGridViewRow row = this.dgvModule.Rows[e.RowIndex];
 
-                txtModuleCode.Text = row.Cells["Module_Code"].Value.ToString();
-                txtModuleName.Text = row.Cells["Module_Name"].Value.ToString();
-                rtbDescription.Text = row.Cells["Module_Description"].Value.ToString();
-                rtbLinks.Text = row.Cells["Module_Resources"].Value.ToString();
+                txtModuleCode.Text = row.Cells["ModuleCode"].Value.ToString();
+                txtModuleName.Text = row.Cells["ModuleName"].Value.ToString();
+                rtbDescription.Text = row.Cells["Description"].Value.ToString();
+                //rtbLinks.Text = row.Cells["Module_Resources"].Value.ToString();
                
             }
         }
@@ -64,7 +64,7 @@ namespace PRG282_Project
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(module.moduleDeleted(txtSearch.Text), "Student Delete.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(module.moduleDeleted(int.Parse(txtSearch.Text)), "Student Delete.", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnRead_Click(object sender, EventArgs e)
@@ -74,7 +74,7 @@ namespace PRG282_Project
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            dgvModule.DataSource = module.searchModule(txtSearch.Text);
+            dgvModule.DataSource = module.searchModule(int.Parse(txtSearch.Text));
         }
     }
 }

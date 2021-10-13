@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.IO;
-using System.Drawing;
 using System.Drawing.Imaging;
 using System.Data;
 using System.Data.SqlClient;
@@ -16,31 +15,32 @@ namespace PRG282_Project
     public class DataHandler
     {
         static string connect = @"Data Source=freeseball-PC;Initial Catalog=Milestone2_DB;Integrated Security=True";
-        SqlConnection sqlConn = new SqlConnection(connect);
-        static bool success = false;
+        
+        
 
         //General Code
         public byte[] convertImage(Image img)
         {
             MemoryStream ms = new MemoryStream();
-            img.Save(ms, ImageFormat.Jpeg);
-            byte[] imgArr = new byte[ms.Length];
-            ms.Position = 0;
-            ms.Read(imgArr, 0, imgArr.Length);
+            img.Save(ms, img.RawFormat);
+            return ms.ToArray();
+            //ms.Position = 0;
+            //ms.Read(imgArr, 0, imgArr.Length);
 
-            return imgArr;
+            //return imgArr;
         }
 
         //StudentModules DB
         //SQL query that finds all modules linked to a student Num
-        public List<Module> readStudentModules(int Num)
+        public List<int> readStudentModules(int Num)
         {
-            List<Module> mList = new List<Module>();
+            SqlConnection sqlConn = new SqlConnection(connect);
+            List<int> mList = new List<int>();
             
             try
             {
                 sqlConn.Open();
-                string qModules = "SELECT * FROM Modules  WHERE Module_Code IN (SELECT Module_Code FROM StudentModules WHERE Student_Number = 1)";
+                string qModules = "SELECT Module_Code FROM Modules  WHERE Module_Code IN (SELECT Module_Code FROM StudentModules WHERE Student_Number = 1)";
                 SqlCommand cmd = new SqlCommand(qModules, sqlConn);
 
                 using (var r = cmd.ExecuteReader())
@@ -48,11 +48,8 @@ namespace PRG282_Project
 
                     while (r.Read())
                     {
-                        //Module_Code (Used to reduce new Module size)
-                        int id = int.Parse(r[0].ToString());
-
                         //Add current Module to list of Modules
-                        mList.Add(new Module(id, r[1].ToString(), r[2].ToString(), r[3].ToString().Split(';').ToList()));
+                        mList.Add(int.Parse(r[0].ToString()));
                     }
                 }
             }
@@ -71,6 +68,7 @@ namespace PRG282_Project
         //Add a Student-Module Pair to the joining table "StudentModules"
         public void addStudentModules(int sID, int mID)
         {
+            SqlConnection sqlConn = new SqlConnection(connect);
             try
             {
                 using (sqlConn)
@@ -101,6 +99,7 @@ namespace PRG282_Project
         {
             List<Student> sList = new List<Student>();
             Image img = null;
+            SqlConnection sqlConn = new SqlConnection(connect);
 
             try
             {
@@ -128,7 +127,7 @@ namespace PRG282_Project
                     }
                 }
             }
-            catch(SqlException ex)
+            catch(SqlException)
             {
                 //Check returned list count in Student BL layer, if count is 0, return error message saying "ERROR connecting to server"
                 sList.Clear();
@@ -147,7 +146,9 @@ namespace PRG282_Project
         //adds student to DB and returns confirmation
         public bool addStudent(string n, string sn, Image img, DateTime dob, char g, string p, string a, List<int> mId )//*
         {
+            bool success = false;
             int sID;
+            SqlConnection sqlConn = new SqlConnection(connect);
 
             try
             {
@@ -167,6 +168,7 @@ namespace PRG282_Project
 
                     sqlConn.Open();
                     cmd.ExecuteNonQuery();
+                    sqlConn.Close();
                 }
 
                 //Gets the Student_Number of the latest (previously inserted) student
@@ -186,7 +188,7 @@ namespace PRG282_Project
                 success = true;
 
             }
-            catch (SqlException ex)
+            catch (SqlException)
             {
                 success = false;
             }
@@ -204,6 +206,9 @@ namespace PRG282_Project
         //updates student to DB and returns confirmation
         public bool updateStudent(int id, string n, string sn, Image img, DateTime dob, char g, string p, string a, List<int> mId)
         {
+            SqlConnection sqlConn = new SqlConnection(connect);
+            bool success = false;
+
             try
             {
                 //Adds student with parameters
@@ -234,7 +239,7 @@ namespace PRG282_Project
                 success = true;
 
             }
-            catch (SqlException ex)
+            catch (SqlException)
             {
                 success = false;
             }
@@ -252,6 +257,9 @@ namespace PRG282_Project
         //deletes student and returns confirmation
         public bool deleteStudent(int sNum)
         {
+            SqlConnection sqlConn = new SqlConnection(connect);
+            bool success = false;
+
             try
             {
                 using (sqlConn)
@@ -266,7 +274,7 @@ namespace PRG282_Project
                 }
                 success = true;
             }
-            catch (SqlException ex)
+            catch (SqlException)
             {
                 success = false;
             }
@@ -282,52 +290,11 @@ namespace PRG282_Project
         }
 
         //Module DB access 
-        //Finds Module Based on Module_Code
-        public List<Student> searchStudents(int mId)//this will send a data source for the DGV, remember to refresh DGV Source when done with search
-        {
-            List<Module> mList = new List<Module>();
-
-            try
-            {
-                using (sqlConn)
-                {
-                    SqlCommand cmd = new SqlCommand("spSearchModules", sqlConn);    
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    cmd.Parameters.AddWithValue("@ID",mId);
-
-                    sqlConn.Open();
-                    using (var r = cmd.ExecuteReader())
-                    {
-                        while (r.Read())
-                        {
-                            //student_Number (Used to reduce new studetn function size, since it is used more than once)
-                            int id = int.Parse(r[0].ToString());
-
-                            //Add current module to list of modules
-                            mList.Add(new Module(id, r[1].ToString(), r[2].ToString(), r[3].ToString().Split(';').ToList()  ));
-                        }
-                    }                  
-                }
-            }
-            catch(SqlException ex)
-            {
-                //Check returned list count in Module BL layer, if count is 0, return error message saying "ERROR connecting to server"
-                mList.Clear();
-            }
-            finally
-            {
-                if (sqlConn.State == ConnectionState.Open)
-                {
-                    sqlConn.Close();
-                }
-            }
-            return mList;
-        }
-
+        
         //Reurns all moduless from the DB
         public List<Module> readModules()
         {
+            SqlConnection sqlConn = new SqlConnection(connect);
             List<Module> mList = new List<Module>();
 
             try
@@ -348,7 +315,7 @@ namespace PRG282_Project
                     }
                 }
             }
-            catch(SqlException ex)
+            catch(SqlException)
             {
                 //Check returned list count in Student BL layer, if count is 0, return error message saying "ERROR connecting to server"
                 mList.Clear();
@@ -366,6 +333,9 @@ namespace PRG282_Project
         //adds Module to DB and returns confirmation
         public bool addModule(int id, string n, string des, List<string> res)
         {
+            SqlConnection sqlConn = new SqlConnection(connect);
+            bool success = false;
+
             try
             {
                 using (sqlConn)
@@ -375,14 +345,14 @@ namespace PRG282_Project
 
                     cmd.Parameters.AddWithValue("@N",n);
                     cmd.Parameters.AddWithValue("@DES", des);
-                    cmd.Parameters.AddWithValue("@RES", String.Join(";", res.ToArray()););
+                    cmd.Parameters.AddWithValue("@RES", String.Join(";", res.ToArray()));
 
                     sqlConn.Open();
                     cmd.ExecuteNonQuery();
                 }
                 success = true;
             }
-            catch (SqlException ex)
+            catch (SqlException)
             {
                 success = false;
             }
@@ -400,6 +370,9 @@ namespace PRG282_Project
         //updates module to DB and returns confirmation
         public bool updateModule(int id, string n, string des, List<string> res)
         {
+            SqlConnection sqlConn = new SqlConnection(connect);
+            bool success = false;
+
             try
             {
                 using (sqlConn)
@@ -409,14 +382,14 @@ namespace PRG282_Project
 
                     cmd.Parameters.AddWithValue("@N",n);
                     cmd.Parameters.AddWithValue("@DES", des);
-                    cmd.Parameters.AddWithValue("@RES", String.Join(";", res.ToArray()););
+                    cmd.Parameters.AddWithValue("@RES", String.Join(";", res.ToArray()));
 
                     sqlConn.Open();
                     cmd.ExecuteNonQuery();
                 }
                 success = true;
             }
-            catch (SqlException ex)
+            catch (SqlException)
             {
                 success = false;
             }
@@ -434,7 +407,36 @@ namespace PRG282_Project
         //deletes module and returns confirmation
         public bool deleteModule(int mCode)
         {
-            return true;
+            SqlConnection sqlConn = new SqlConnection(connect);
+            bool success = false;
+
+            try
+            {
+                using (sqlConn)
+                {
+                    SqlCommand cmd = new SqlCommand("spDeleteModules", sqlConn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@ID", mCode);
+
+                    sqlConn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                success = true;
+            }
+            catch (SqlException)
+            {
+                success = false;
+            }
+            finally
+            {
+                if (sqlConn.State == ConnectionState.Open)
+                {
+                    sqlConn.Close();
+                }
+            }
+
+            return success;
         }
 
     }

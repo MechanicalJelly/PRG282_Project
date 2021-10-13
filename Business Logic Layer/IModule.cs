@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PRG282_Project
 {
-    public interface IModule: IComparable
+    public interface IModule
     {
         //References DH to insert module when cirteria is met (C)
         string validateModuleInfo(Module m);
@@ -23,7 +23,7 @@ namespace PRG282_Project
 
 
         //returns the new filtered source for DGV according to a search 
-        List<Module> searchModule(string mCode);
+        List<Module> searchModule(int mCode);
         
     }
 }

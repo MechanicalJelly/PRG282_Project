@@ -93,7 +93,7 @@ namespace PRG282_Project
         }
     
          //[D] Deletes a module in the DB based on its ID
-        public string moduleDeleted(string mCode)
+        public string moduleDeleted(int mCode)
         {
 
             DataHandler handle = new DataHandler();

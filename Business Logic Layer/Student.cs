@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace PRG282_Project
 {
@@ -21,6 +22,8 @@ namespace PRG282_Project
         static DataHandler handle = new DataHandler();
         List<int> studentModules = new List<int>();
         List<Student> students = new List<Student>();
+
+        public Student() { }
 
         public Student(int studentNum, string firstName, string surname, Image imgUrl, DateTime dateOfBirth, char gender, string phoneNumber, string address, List<int> modules)
         {
@@ -43,6 +46,7 @@ namespace PRG282_Project
         public char Gender { get => gender; set => gender = value; }
         public string PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
         public string Address { get => address; set => address = value; }
+        public List<int> StudentModules { get => studentModules; set => studentModules = value; }
 
 
        //Validates all student info to ensure that entered data is in the correct format, returns a suitable message
@@ -81,8 +85,6 @@ namespace PRG282_Project
             {
                 return "Successful validation";
             }
-
-
 
         }
 
