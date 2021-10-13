@@ -85,10 +85,6 @@ namespace PRG282_Project
         private void btnRead_Click(object sender, EventArgs e)
         {
             dgvStudent.DataSource = student.getStudents();
-            foreach (var module1 in module.getModules())
-            {
-                clbModuleCodes.Items.Add(module1);
-            }
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
