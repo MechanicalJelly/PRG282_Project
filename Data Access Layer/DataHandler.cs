@@ -9,6 +9,7 @@ using System.Drawing.Imaging;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace PRG282_Project
 {
@@ -130,7 +131,7 @@ namespace PRG282_Project
         public bool addStudent(string n, string sn, Image img, DateTime dob, char g, string p, string a, List<int> mId )//*
         {
             bool success = false;
-            int sID;
+            int sID = 0;
 
             try
             {
@@ -146,27 +147,13 @@ namespace PRG282_Project
                     cmd.Parameters.AddWithValue("@DOB", dob);
                     cmd.Parameters.AddWithValue("@G", g);
                     cmd.Parameters.AddWithValue("@P", p);
-                    cmd.Parameters.AddWithValue("@A", a);
+                    cmd.Parameters.AddWithValue("@A", a);                    
 
                     sqlConn.Open();
                     cmd.ExecuteNonQuery();
-                    sqlConn.Close();
+                    //sID=int.Parse(Convert.ToString(cmd.Parameters["@LASTID"].Value));
                 }
 
-                //Gets the Student_Number of the latest (previously inserted) student
-                using (SqlConnection sqlConn = new SqlConnection(connect))
-                {
-                    SqlCommand cmd = new SqlCommand("spGetLastId", sqlConn);
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    sqlConn.Open();
-                    sID = cmd.ExecuteNonQuery();
-                }
-
-                //Adds all modules acosiated with the student
-                foreach (int m in mId){
-                    addStudentModules(sID, m);
-                }
                 success = true;
 
             }
@@ -271,7 +258,7 @@ namespace PRG282_Project
                         int id = int.Parse(r[0].ToString());                       
                         
                         //Add current Module to list of Modules
-                        mList.Add(new Module(id, r[1].ToString(), r[2].ToString(),r[3].ToString().Split(';').ToList() ));
+                        mList.Add(new Module(id, r[1].ToString(), r[2].ToString(),r[3].ToString()));
                     }
                 }
             }
@@ -291,7 +278,7 @@ namespace PRG282_Project
         }
 
         //adds Module to DB and returns confirmation
-        public bool addModule(string n, string des, List<string> res)
+        public bool addModule(string n, string des, string res)
         {
             bool success = false;
 
@@ -304,7 +291,7 @@ namespace PRG282_Project
 
                     cmd.Parameters.AddWithValue("@N",n);
                     cmd.Parameters.AddWithValue("@DES", des);
-                    cmd.Parameters.AddWithValue("@RES", String.Join(";", res.ToArray()));
+                    cmd.Parameters.AddWithValue("@RES",res);
 
                     sqlConn.Open();
                     cmd.ExecuteNonQuery();
@@ -320,7 +307,7 @@ namespace PRG282_Project
         }
 
         //updates module to DB and returns confirmation
-        public bool updateModule(int id, string n, string des, List<string> res)
+        public bool updateModule(int id, string n, string des, string res)
         {
             bool success = false;
 
@@ -334,7 +321,7 @@ namespace PRG282_Project
                     cmd.Parameters.AddWithValue("@ID",id);
                     cmd.Parameters.AddWithValue("@N",n);
                     cmd.Parameters.AddWithValue("@DES", des);
-                    cmd.Parameters.AddWithValue("@RES", String.Join(";", res.ToArray()));
+                    cmd.Parameters.AddWithValue("@RES", res);
 
                     sqlConn.Open();
                     cmd.ExecuteNonQuery();

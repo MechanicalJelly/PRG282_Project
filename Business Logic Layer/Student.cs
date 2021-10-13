@@ -49,6 +49,8 @@ namespace PRG282_Project
         public List<int> StudentModules { get => studentModules; set => studentModules = value; }
       
         //GENERAL
+
+
         //Get names of all modules in DB
         public List<string> getModuleNames()
         {
@@ -62,6 +64,12 @@ namespace PRG282_Project
             }
 
             return names;
+        }
+        public void addStudentModules(int sID, List<int> mList)
+        {
+            foreach (int m in mList){
+                handle.addStudentModules(sID, m);
+             }
         }
 
         //Get Modules of a specific student

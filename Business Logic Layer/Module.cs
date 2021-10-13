@@ -12,14 +12,14 @@ namespace PRG282_Project
         int moduleCode;
         string moduleName;
         string description;
-
+        string onlineResources;
 
        DataHandler handle = new DataHandler();
-        List<string> onlineResources = new List<string>();
+        
         List<Module> Modules = new List<Module>();
 
         public Module() { }
-        public Module(int moduleCode, string moduleName, string description, List<string> resources)//*
+        public Module(int moduleCode, string moduleName, string description, string resources)//*
         {
             this.moduleCode = moduleCode;
             this.moduleName = moduleName;
@@ -30,8 +30,9 @@ namespace PRG282_Project
         public int ModuleCode { get => moduleCode; set => moduleCode = value; }
         public string ModuleName { get => moduleName; set => moduleName = value; }
         public string Description { get => description; set => description = value; }
-
+        public string Resources { get => onlineResources; set => onlineResources = value; }
         
+
 
         //Module validation
         public string validation(string mN, string des)

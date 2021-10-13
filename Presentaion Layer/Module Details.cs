@@ -39,35 +39,32 @@ namespace PRG282_Project
                 txtModuleCode.Text = row.Cells["ModuleCode"].Value.ToString();
                 txtModuleName.Text = row.Cells["ModuleName"].Value.ToString();
                 rtbDescription.Text = row.Cells["Description"].Value.ToString();
-                //rtbLinks.Text = row.Cells["Module_Resources"].Value.ToString();
+
+                List<string> res = (row.Cells["Resources"].Value.ToString()).Split(';').ToList();
+                foreach(string r in res)
+                {
+                    rtbLinks.Text += Environment.NewLine + r;
+                }
                
             }
         }
 
         private void btnInsert_Click(object sender, EventArgs e)
         {
-            List<string> resources = new List<string>();
+            string[] resourceList = rtbLinks.Lines;
+            string res =  string.Join(";", resourceList);
 
-            foreach (string link in resources)
-            {
-                resources.Add(rtbLinks.Lines[int.Parse(link)]);
-            }
-
-            string insert = module.validateModuleInfo(new Module(int.Parse(txtModuleCode.Text), txtModuleName.Text, rtbDescription.Text,resources));
+            string insert = module.validateModuleInfo(new Module(int.Parse(txtModuleCode.Text), txtModuleName.Text, rtbDescription.Text, res));
 
             MessageBox.Show(insert,"Insert Module Info.",MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            List<string> resources = new List<string>();
+            string[] resourceList = rtbLinks.Lines;
+            string res =  string.Join(";", resourceList);
             
-            foreach (string link in resources)
-            {
-                resources.Add(rtbLinks.Lines[int.Parse(link)]);
-            }
-            
-            string update = module.moduleInfoChanged(new Module(int.Parse(txtModuleCode.Text), txtModuleName.Text, rtbDescription.Text, resources));
+            string update = module.moduleInfoChanged(new Module(int.Parse(txtModuleCode.Text), txtModuleName.Text, rtbDescription.Text, res));
 
             MessageBox.Show(update, "Update Module Info.", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }

@@ -76,10 +76,24 @@ namespace PRG282_Project
 
         private void btnInsert_Click(object sender, EventArgs e)
         {
-            List<int> modules = new List<int>(clbModuleCodes.CheckedItems.Cast<int>());
-            string insert = student.validateStudentInfo(new Student(int.Parse(txtStudentNumber.Text), txtStudentName.Text, txtStudentSurname.Text, pbxStudentImage.Image, dtpDOB.Value, Convert.ToChar(txtGender.Text), txtPhone.Text, txtAddress.Text, modules));
+            List<int> indexList = new List<int>();
+
+            for (int i = 0; i < clbModuleCodes.Items.Count; i++)
+            {
+                if (this.clbModuleCodes.GetItemCheckState(i) == CheckState.Checked)
+                {
+                    indexList.Add(i+1);
+                }
+            }
+
+            string insert = student.validateStudentInfo(new Student(int.Parse(txtStudentNumber.Text), txtStudentName.Text, txtStudentSurname.Text, pbxStudentImage.Image, dtpDOB.Value, Convert.ToChar(txtGender.Text), txtPhone.Text, txtAddress.Text, indexList));
+            
+            int lastID = int.Parse(dgvStudent.Rows[dgvStudent.Rows.Count-1].Cells["StudentNum"].Value.ToString());
+                        MessageBox.Show(lastID.ToString());
+            student.addStudentModules((lastID +1),indexList);
 
             MessageBox.Show(insert, "Insert Student Info.",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            
         }
 
         private void btnRead_Click(object sender, EventArgs e)
@@ -93,8 +107,16 @@ namespace PRG282_Project
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            List<int> modules = new List<int>(clbModuleCodes.CheckedItems.Cast<int>());
-            string update = student.studentInfoChanged(new Student(int.Parse(txtStudentNumber.Text), txtStudentName.Text, txtStudentSurname.Text, pbxStudentImage.Image, dtpDOB.Value, Convert.ToChar(txtGender.Text), txtPhone.Text, txtAddress.Text,modules));
+            List<int> indexList = new List<int>();
+
+            for (int i = 0; i < clbModuleCodes.Items.Count; i++)
+            {
+                if (this.clbModuleCodes.GetItemCheckState(i) == CheckState.Checked)
+                {
+                    indexList.Add(i+1);
+                }
+            }
+            string update = student.studentInfoChanged(new Student(int.Parse(txtStudentNumber.Text), txtStudentName.Text, txtStudentSurname.Text, pbxStudentImage.Image, dtpDOB.Value, Convert.ToChar(txtGender.Text), txtPhone.Text, txtAddress.Text,indexList));
 
             MessageBox.Show(update, "Update Student Info.", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
