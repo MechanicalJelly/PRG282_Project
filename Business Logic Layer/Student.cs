@@ -12,17 +12,17 @@ namespace PRG282_Project
         int studentNum;
         string firstName;
         string surname;
-        Image imgUrl;//*
+        Image imgUrl;
         DateTime dateOfBirth;
         char gender;
         string phoneNumber;
         string address;
 
         static DataHandler handle = new DataHandler();
-        List<Module> studentModules = new List<Module>();
+        List<int> studentModules = new List<int>();
         List<Student> students = new List<Student>();
 
-        public Student(int studentNum, string firstName, string surname, Image imgUrl, DateTime dateOfBirth, char gender, string phoneNumber, string address, List<Module> modules)
+        public Student(int studentNum, string firstName, string surname, Image imgUrl, DateTime dateOfBirth, char gender, string phoneNumber, string address, List<int> modules)
         {
             this.studentNum = studentNum;
             this.firstName = firstName;
@@ -45,7 +45,7 @@ namespace PRG282_Project
         public string Address { get => address; set => address = value; }
 
 
-       
+       //Validates all student info to ensure that entered data is in the correct format, returns a suitable message
        public string validation(string fn, string sn,Image i,DateTime dob, char g,string phone, string a)
         {
 
@@ -86,9 +86,10 @@ namespace PRG282_Project
 
         }
 
-        
+        //[C] Runs validation, if everything is correct, attempts to insert student and returns a suitable message
         public string validateStudentInfo(Student s)
         {
+
             string msg = validation(s.FirstName, s.Surname, s.ImgUrl, s.DateOfBirth, s.Gender, s.PhoneNumber, s.Address);
             if (msg[0].Equals("E"))//alles begin met e
             {
@@ -96,15 +97,7 @@ namespace PRG282_Project
             }
             else
             {
-                List<int> modules = new List<int>();
-                modules.Add(1);
-                modules.Add(3);
-                modules.Add(5);
-
-
-                
-
-                if (handle.addStudent(s.FirstName, s.Surname, s.ImgUrl, s.DateOfBirth, s.Gender, s.PhoneNumber, s.Address, modules))
+                if (handle.addStudent(s.FirstName, s.Surname, s.ImgUrl, s.DateOfBirth, s.Gender, s.PhoneNumber, s.Address, s.studentModules))
                     return "New Student has been added.";
                 else
                     return "Student could not be added.";
@@ -112,18 +105,16 @@ namespace PRG282_Project
                     
         }
 
-        
+        //[R] Reads and returns all students in the DB
         public List<Student> getStudents()
-        {
-            DataHandler handle = new DataHandler();
+        {            
             return handle.readStudents();
         }
 
+        //[U] Runs validation, if everything is correct, attempts to update student info and returns a suitable message
         public string studentInfoChanged(Student s)
         {
-           
-           
-           
+ 
             string msg = validation(s.FirstName, s.Surname, s.ImgUrl, s.DateOfBirth, s.Gender, s.PhoneNumber, s.Address);
             if (msg[0].Equals("E"))//alles begin met e
             {
@@ -131,13 +122,9 @@ namespace PRG282_Project
             }
             else
             {
-                List<int> modules = new List<int>();
-                modules.Add(1);
-                modules.Add(3);
-                modules.Add(5);
 
                 DataHandler handle = new DataHandler();
-                if (handle.updateStudent(s.StudentNum, s.FirstName, s.Surname, s.ImgUrl, s.DateOfBirth, s.Gender, s.PhoneNumber, s.Address, modules))
+                if (handle.updateStudent(s.StudentNum, s.FirstName, s.Surname, s.ImgUrl, s.DateOfBirth, s.Gender, s.PhoneNumber, s.Address, s.studentModules))
                 {
                     return "Student with id: " + s.StudentNum + ", has been updated.";
                 }
@@ -149,6 +136,7 @@ namespace PRG282_Project
 
         }
        
+        //[D] Deletes a student in the DB based on their ID
         public string studentDeleted(int sNum)
         {
         
@@ -164,22 +152,20 @@ namespace PRG282_Project
             
         }
 
-       
+       //[S] Finds a Student_Num in a list of all the students
         public List<Student> searchStudent(int studentNum)
+        { 
+            List<Student> allList = handle.readStudents();
+            List<Student> newList = new List<Student>();
 
-        {
-           
-           
-            List<Student> ls = new List<Student>();
-            foreach (Student s in students)
+            foreach (Student s in allList)
             {
                 if (s.StudentNum.Equals(studentNum))
                 {
-                    ls.Add(new Student(s.StudentNum, s.FirstName, s.Surname, s.ImgUrl, s.DateOfBirth, s.Gender, s.PhoneNumber, s.Address,studentModules));
-                    
+                    newList.Add(new Student(s.StudentNum, s.FirstName, s.Surname, s.ImgUrl, s.DateOfBirth, s.Gender, s.PhoneNumber, s.Address,s.studentModules));
                 }
             }
-            return ls;
+            return newList;
         }
 
 

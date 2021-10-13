@@ -49,6 +49,7 @@ namespace PRG282_Project
             }
         }
      
+        //[C] Runs validation, if everything is correct, attempts to insert module and returns a suitable message
         public string validateModuleInfo(Module m)
         {
             string msg = validation(m.ModuleName,m.Description);
@@ -58,14 +59,14 @@ namespace PRG282_Project
             }
             else
             {
-                if (handle.addModule(m))//why
+                if (handle.addModule(m.ModuleCode,m.ModuleName,m.Description,m.onlineResources))
                     return "New Module has been added.";
                 else
                     return "Module could not be added.";
             }
         }
 
-        //Fetches all Modules from DH (R)
+        //[R] Reads and returns all modules in the DB
         public List<Module> getModuless()
         {
             DataHandler handle = new DataHandler();
@@ -73,7 +74,7 @@ namespace PRG282_Project
            
         }
 
-        //confirms update (U)
+        //[U] Runs validation, if everything is correct, attempts to update module info and returns a suitable message
         public string moduleInfoChanged(Module m)
         {
             string msg = validation(m.ModuleName, m.Description);
@@ -83,14 +84,14 @@ namespace PRG282_Project
             }
             else
             {
-                if (handle.updateModule(m))//why
+                if (handle.updateModule(m.ModuleCode,m.ModuleName,m.Description,m.onlineResources))
                     return "Module with Code: "+m.ModuleCode+", has been updated.";
                 else
                     return "Module could not be updated.";
             }
         }
     
-
+         //[D] Deletes a module in the DB based on its ID
         public string moduleDeleted(string mCode)
         {
 
@@ -104,27 +105,23 @@ namespace PRG282_Project
                 return "fail to delete";
             }
 
-          
         }
 
-        //returns the new filtered source for DGV 
-        public List<Module> searchModule(string mCode)
+        //[S] Finds a Module_Code in a list of all the modules
+        public List<Module> searchModule(int mCode)
         {
-            List<Module> ls = new List<Module>();
-            foreach (Module m in Modules)
+            List<Module> allList = handle.readModules();
+            List<Module> newList = new List<Module>();
+            foreach (Module m in allList)
             {
                 if (m.ModuleCode.Equals(mCode))
                 {
-                    ls.Add(new Module(m.ModuleCode, m.ModuleName,m.Description,m.onlineResources));
-
+                    newList.Add(new Module(m.ModuleCode, m.ModuleName,m.Description,m.onlineResources));
                 }
             }
-            return ls;
+            return newList;
         }
 
-
-
-      
         public int CompareTo(Module other)
         {
             return this.ModuleCode.CompareTo(other.ModuleCode);
