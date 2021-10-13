@@ -22,6 +22,7 @@ namespace PRG282_Project
         List<Module> studentModules = new List<Module>();
         List<Student> students = new List<Student>();
 
+        public Student() { }
         public Student(int studentNum, string firstName, string surname, Image imgUrl, DateTime dateOfBirth, char gender, string phoneNumber, string address, List<Module> modules)
         {
             this.studentNum = studentNum;
@@ -44,8 +45,7 @@ namespace PRG282_Project
         public string PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
         public string Address { get => address; set => address = value; }
 
-
-       
+    
        public string validation(string fn, string sn,Image i,DateTime dob, char g,string phone, string a)
         {
 
@@ -85,6 +85,7 @@ namespace PRG282_Project
 
 
         }
+
 
         
         public string validateStudentInfo(Student s)

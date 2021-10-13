@@ -127,6 +127,7 @@ namespace PRG282_Project
             this.btnStudentImage.TabIndex = 56;
             this.btnStudentImage.Text = "Upload Image";
             this.btnStudentImage.UseVisualStyleBackColor = true;
+            this.btnStudentImage.Click += new System.EventHandler(this.btnStudentImage_Click);
             // 
             // lblSearch
             // 
@@ -152,6 +153,7 @@ namespace PRG282_Project
             this.btnSearch.TabIndex = 53;
             this.btnSearch.Text = "Search Student";
             this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // btnBack
             // 
@@ -171,6 +173,7 @@ namespace PRG282_Project
             this.btnRead.TabIndex = 51;
             this.btnRead.Text = "Read Student";
             this.btnRead.UseVisualStyleBackColor = true;
+            this.btnRead.Click += new System.EventHandler(this.btnRead_Click);
             // 
             // btnDelete
             // 
@@ -180,6 +183,7 @@ namespace PRG282_Project
             this.btnDelete.TabIndex = 50;
             this.btnDelete.Text = "Delete Student";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnUpdate
             // 
@@ -325,6 +329,7 @@ namespace PRG282_Project
             this.btnInsert.TabIndex = 32;
             this.btnInsert.Text = "Insert Student";
             this.btnInsert.UseVisualStyleBackColor = true;
+            this.btnInsert.Click += new System.EventHandler(this.btnInsert_Click);
             // 
             // pbxStudentImage
             // 
@@ -343,6 +348,7 @@ namespace PRG282_Project
             this.dgvStudent.Name = "dgvStudent";
             this.dgvStudent.Size = new System.Drawing.Size(569, 196);
             this.dgvStudent.TabIndex = 30;
+            this.dgvStudent.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStudent_CellContentClick);
             // 
             // StudentDetails
             // 
@@ -352,6 +358,7 @@ namespace PRG282_Project
             this.Controls.Add(this.gbxStudent);
             this.Name = "StudentDetails";
             this.Text = "Student Details";
+            this.Load += new System.EventHandler(this.StudentDetails_Load);
             this.gbxStudent.ResumeLayout(false);
             this.gbxStudent.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxStudentImage)).EndInit();

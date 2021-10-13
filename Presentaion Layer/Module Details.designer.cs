@@ -1,4 +1,7 @@
 ﻿
+using System;
+using System.Windows.Forms;
+
 namespace PRG282_Project
 {
     partial class ModuleDetails
@@ -40,7 +43,7 @@ namespace PRG282_Project
             this.btnRead = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
-            this.txtStudentName = new System.Windows.Forms.TextBox();
+            this.txtModuleName = new System.Windows.Forms.TextBox();
             this.lblLinks = new System.Windows.Forms.Label();
             this.lblModuleDescription = new System.Windows.Forms.Label();
             this.lblModuleName = new System.Windows.Forms.Label();
@@ -64,7 +67,7 @@ namespace PRG282_Project
             this.gbxModule.Controls.Add(this.btnRead);
             this.gbxModule.Controls.Add(this.btnDelete);
             this.gbxModule.Controls.Add(this.btnUpdate);
-            this.gbxModule.Controls.Add(this.txtStudentName);
+            this.gbxModule.Controls.Add(this.txtModuleName);
             this.gbxModule.Controls.Add(this.lblLinks);
             this.gbxModule.Controls.Add(this.lblModuleDescription);
             this.gbxModule.Controls.Add(this.lblModuleName);
@@ -129,6 +132,7 @@ namespace PRG282_Project
             this.btnSearch.TabIndex = 72;
             this.btnSearch.Text = "Search Module";
             this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // btnBack
             // 
@@ -148,6 +152,7 @@ namespace PRG282_Project
             this.btnRead.TabIndex = 70;
             this.btnRead.Text = "Read Module";
             this.btnRead.UseVisualStyleBackColor = true;
+            this.btnRead.Click += new System.EventHandler(this.btnRead_Click);
             // 
             // btnDelete
             // 
@@ -157,6 +162,7 @@ namespace PRG282_Project
             this.btnDelete.TabIndex = 69;
             this.btnDelete.Text = "Delete Module";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnUpdate
             // 
@@ -166,13 +172,14 @@ namespace PRG282_Project
             this.btnUpdate.TabIndex = 68;
             this.btnUpdate.Text = "Update Module";
             this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
-            // txtStudentName
+            // txtModuleName
             // 
-            this.txtStudentName.Location = new System.Drawing.Point(164, 288);
-            this.txtStudentName.Name = "txtStudentName";
-            this.txtStudentName.Size = new System.Drawing.Size(150, 20);
-            this.txtStudentName.TabIndex = 65;
+            this.txtModuleName.Location = new System.Drawing.Point(164, 288);
+            this.txtModuleName.Name = "txtModuleName";
+            this.txtModuleName.Size = new System.Drawing.Size(150, 20);
+            this.txtModuleName.TabIndex = 65;
             // 
             // lblLinks
             // 
@@ -234,6 +241,7 @@ namespace PRG282_Project
             this.dgvModule.Name = "dgvModule";
             this.dgvModule.Size = new System.Drawing.Size(721, 196);
             this.dgvModule.TabIndex = 58;
+            this.dgvModule.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvModule_CellContentClick);
             // 
             // ModuleDetails
             // 
@@ -243,12 +251,15 @@ namespace PRG282_Project
             this.Controls.Add(this.gbxModule);
             this.Name = "ModuleDetails";
             this.Text = "Module Details";
+            this.Load += new System.EventHandler(this.ModuleDetails_Load);
             this.gbxModule.ResumeLayout(false);
             this.gbxModule.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvModule)).EndInit();
             this.ResumeLayout(false);
 
         }
+
+        
 
         #endregion
 
@@ -261,7 +272,7 @@ namespace PRG282_Project
         private System.Windows.Forms.Button btnRead;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnUpdate;
-        private System.Windows.Forms.TextBox txtStudentName;
+        private System.Windows.Forms.TextBox txtModuleName;
         private System.Windows.Forms.Label lblLinks;
         private System.Windows.Forms.Label lblModuleDescription;
         private System.Windows.Forms.Label lblModuleName;
