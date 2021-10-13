@@ -12,8 +12,7 @@ namespace PRG282_Project
 {
     public partial class ModuleDetails : Form
     {
-        DataHandler handler = new DataHandler();
-        FormValidation validate = new FormValidation();
+        Module module = new Module();
         public ModuleDetails()
         {
             InitializeComponent();
@@ -28,7 +27,7 @@ namespace PRG282_Project
 
         private void ModuleDetails_Load(object sender, EventArgs e)
         {
-            dgvModule.DataSource = handler.readModules();
+            dgvModule.DataSource = module.getModuless();
         }
 
         private void dgvModule_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -47,35 +46,35 @@ namespace PRG282_Project
 
         private void btnInsert_Click(object sender, EventArgs e)
         {
-            bool flag = validate.ValidateModule(txtModuleName.Text, rtbDescription.Text, rtbLinks.Text);
-            if (flag == true)
-            {
-                MessageBox.Show("Please fill in the empty boxes!", "Empty Boxes", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            List<string> resources = new List<string>();
+            resources.Add(rtbLinks.Text);
+            string insert = module.validateModuleInfo(new Module(int.Parse(txtModuleCode.Text), txtModuleName.Text, rtbDescription.Text,resources));
+
+            MessageBox.Show(insert,"Insert Module Info.",MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            bool flag = validate.ValidateModule(txtModuleName.Text, rtbDescription.Text, rtbLinks.Text);
-            if (flag == true)
-            {
-                MessageBox.Show("Please fill in the empty boxes!", "Empty Boxes", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            List<string> resources = new List<string>();
+            resources.Add(rtbLinks.Text);
+            string update = module.moduleInfoChanged(new Module(int.Parse(txtModuleCode.Text), txtModuleName.Text, rtbDescription.Text, resources));
+
+            MessageBox.Show(update, "Update Module Info.", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            
+            MessageBox.Show(module.moduleDeleted(txtSearch.Text), "Student Delete.", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnRead_Click(object sender, EventArgs e)
         {
-            
+            dgvModule.DataSource = module.getModuless();
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            
+            dgvModule.DataSource = module.searchModule(txtModuleCode.Text);
         }
     }
 }

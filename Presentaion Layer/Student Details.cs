@@ -12,9 +12,8 @@ namespace PRG282_Project
 {
     public partial class StudentDetails : Form
     {
-        DataHandler handler = new DataHandler();
-        FormValidation validate = new FormValidation();
         Student student = new Student();
+        Module module = new Module();
         public StudentDetails()
         {
             InitializeComponent();
@@ -29,6 +28,7 @@ namespace PRG282_Project
 
         private void dgvStudent_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            //call method for checkedlistbox items
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = this.dgvStudent.Rows[e.RowIndex];
@@ -41,26 +41,20 @@ namespace PRG282_Project
                 txtGender.Text = row.Cells["Student_Gender"].Value.ToString();
                 txtPhone.Text = row.Cells["Student_Phone"].Value.ToString();
                 txtAddress.Text = row.Cells["Student_Address"].Value.ToString();
-                //clbModuleCodes.Items = row.Cells["Student_Address"].Value.ToString();
+                //clbModuleCodes.CheckedItems = row.Cells["Module_Codes"].Value.ToString();
             }
         }
 
         private void StudentDetails_Load(object sender, EventArgs e)
         {
             dgvStudent.DataSource = student.getStudents();
+            clbModuleCodes.Items.Add(module.getModuless());
         }
 
         private void btnInsert_Click(object sender, EventArgs e)
         {
-            bool flag = validate.ValidateStudent(txtStudentName.Text, txtStudentSurname.Text, txtGender.Text, txtPhone.Text, txtAddress.Text);
-
-            if (flag == true)
-            {
-                MessageBox.Show("Please fill in the empty boxes!", "Empty Boxes", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
             List<Module> modules = new List<Module>(clbModuleCodes.CheckedItems.Cast<Module>());
-           string insert = student.validateStudentInfo(new Student(int.Parse(txtStudentNumber.Text), txtStudentName.Text, txtStudentSurname.Text, pbxStudentImage.Image, dtpDOB.Value, Convert.ToChar(txtGender.Text), txtPhone.Text, txtAddress.Text, modules));
+            string insert = student.validateStudentInfo(new Student(int.Parse(txtStudentNumber.Text), txtStudentName.Text, txtStudentSurname.Text, pbxStudentImage.Image, dtpDOB.Value, Convert.ToChar(txtGender.Text), txtPhone.Text, txtAddress.Text, modules));
 
             MessageBox.Show(insert, "Insert Student Info.",MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
@@ -72,13 +66,6 @@ namespace PRG282_Project
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-           bool flag = validate.ValidateStudent(txtStudentName.Text, txtStudentSurname.Text, txtGender.Text, txtPhone.Text, txtAddress.Text);
-
-            if (flag == true)
-            {
-                MessageBox.Show("Please fill in the empty boxes!","Empty Boxes",MessageBoxButtons.OK,MessageBoxIcon.Error);
-            }
-
             List<Module> modules = new List<Module>(clbModuleCodes.CheckedItems.Cast<Module>());
             string update = student.studentInfoChanged(new Student(int.Parse(txtStudentNumber.Text), txtStudentName.Text, txtStudentSurname.Text, pbxStudentImage.Image, dtpDOB.Value, Convert.ToChar(txtGender.Text), txtPhone.Text, txtAddress.Text,modules));
 

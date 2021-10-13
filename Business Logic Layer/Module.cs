@@ -14,6 +14,7 @@ namespace PRG282_Project
         List<string> onlineResources = new List<string>();
         List<Module> Modules = new List<Module>();
 
+        public Module() { }
         public Module(int moduleCode, string moduleName, string description, List<string> resources)//*
         {
             this.moduleCode = moduleCode;

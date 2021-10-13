@@ -52,7 +52,6 @@
     <Compile Include="Business Logic Layer\IStudent.cs" />
     <Compile Include="Business Logic Layer\IUser.cs" />
     <Compile Include="Business Logic Layer\Module.cs" />
-    <Compile Include="Presentaion Layer\FormValidation.cs" />
     <Compile Include="Presentaion Layer\Module Details.cs">
       <SubType>Form</SubType>
     </Compile>
