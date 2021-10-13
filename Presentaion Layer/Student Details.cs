@@ -28,7 +28,7 @@ namespace PRG282_Project
 
         private void dgvStudent_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            //call method for checkedlistbox items
+            
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = this.dgvStudent.Rows[e.RowIndex];
@@ -41,7 +41,7 @@ namespace PRG282_Project
                 txtGender.Text = row.Cells["Student_Gender"].Value.ToString();
                 txtPhone.Text = row.Cells["Student_Phone"].Value.ToString();
                 txtAddress.Text = row.Cells["Student_Address"].Value.ToString();
-                //clbModuleCodes.CheckedItems = row.Cells["Module_Codes"].Value.ToString();
+                clbModuleCodes.Items.Add(row.Cells["Module_Codes"].Value.ToString());
             }
         }
 
