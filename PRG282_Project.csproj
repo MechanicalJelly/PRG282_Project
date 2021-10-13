@@ -66,6 +66,7 @@
     </Compile>
     <Compile Include="Presentaion Layer\Login.cs">
       <SubType>Form</SubType>
+      <SubType>Designer</SubType>
     </Compile>
     <Compile Include="Presentaion Layer\Login.designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
