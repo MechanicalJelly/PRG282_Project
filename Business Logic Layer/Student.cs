@@ -48,7 +48,22 @@ namespace PRG282_Project
         public string Address { get => address; set => address = value; }
         public List<int> StudentModules { get => studentModules; set => studentModules = value; }
 
-       
+       //General
+       //Returns all module Names 
+       public List<string> getModuleNames()
+        {
+            Module m = new Module();
+            List<Module> modules = new List<Module>();
+            List<string> names = new List<string>(); 
+            modules = m.getModules();
+
+            foreach(Module l in modules){
+                names.Add(l.ModuleName)
+            }
+
+            return names;
+        }
+
        //Validates all student info to ensure that entered data is in the correct format, returns a suitable message
        public string validation(string fn, string sn,Image i,DateTime dob, char g,string phone, string a)
         {
